@@ -24,7 +24,5 @@ soon
 
 ## Contact
 
-Provide information on how to reach the project maintainers:
-
 Tomer Fried
 tomerfried96@gmail.com
