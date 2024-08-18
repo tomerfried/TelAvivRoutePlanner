@@ -45,7 +45,7 @@ public class RoutePlannerService {
 
     // Google Maps GeoApiContext for API requests
     private final GeoApiContext context = new GeoApiContext.Builder()
-            .apiKey("AIzaSyBPUmsne6NDQjXVW-jUS8GAXRPAky8EAbg")
+            .apiKey("INSERT-KEY-HERE")
             .build();
 
     public RoutePlannerService() throws IOException {
