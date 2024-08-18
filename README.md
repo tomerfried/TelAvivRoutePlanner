@@ -12,7 +12,7 @@ soon
 
 ## Configuration
 
-Explain any configurations that need to be made for the application to run properly.
+soon
 
 ## API Endpoints
 
