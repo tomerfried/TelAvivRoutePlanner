@@ -9,7 +9,7 @@ function MapComponent() {
     const { isLoaded: isApiLoaded } = useJsApiLoader({
         libraries: ['geometry', 'marker'],
         id: 'google-map-script',
-        googleMapsApiKey: "AIzaSyBPUmsne6NDQjXVW-jUS8GAXRPAky8EAbg"
+        googleMapsApiKey: "INSERTֹֹ-KEY-HERE"
     });
 
     const [parkingLotInfos, setParkingLotInfos] = useState([]);
