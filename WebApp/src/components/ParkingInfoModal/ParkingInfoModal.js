@@ -9,7 +9,7 @@ const availabilityToHebrew = {
     'NO_INFORMATION': 'אין מידע'
 };
 
-const ParkingInfoModal = ({ parkingLotInfo }) => (
+const ParkingInfoModal = ({parkingLotInfo}) => (
     <div style={{
         fontFamily: 'Arial, sans-serif',
         backgroundColor: '#f0f0f0',
@@ -23,7 +23,7 @@ const ParkingInfoModal = ({ parkingLotInfo }) => (
             padding: '20px',
             textAlign: 'right'
         }}>
-            <div style={{ marginBottom: '10px', textAlign: 'center' }}>
+            <div style={{marginBottom: '10px', textAlign: 'center'}}>
                 <span style={{
                     fontWeight: 'bold',
                     fontSize: '20px'
@@ -31,17 +31,18 @@ const ParkingInfoModal = ({ parkingLotInfo }) => (
                     {parkingLotInfo.name}
                 </span>
             </div>
-            <div style={{ marginBottom: '14px', fontSize: '14px' }}>
-                <span style={{ fontWeight: 'bold' }}>כתובת:</span> {parkingLotInfo.address ?? ''}
+            <div style={{marginBottom: '14px', fontSize: '14px'}}>
+                <span style={{fontWeight: 'bold'}}>כתובת:</span> {parkingLotInfo.address ?? ''}
             </div>
-            <div style={{ marginBottom: '10px', fontSize: '14px'  }}>
-                <span style={{ fontWeight: 'bold' }}>זמינות: </span>{availabilityToHebrew[parkingLotInfo.parkingLotStatus ?? '']}
+            <div style={{marginBottom: '10px', fontSize: '14px'}}>
+                <span
+                    style={{fontWeight: 'bold'}}>זמינות: </span>{availabilityToHebrew[parkingLotInfo.parkingLotStatus ?? '']}
             </div>
-            <div style={{ marginBottom: '10px', fontSize: '14px'  }}>
-                <span style={{ fontWeight: 'bold' }}>מספר מקומות: </span>{parkingLotInfo.numberOfSpots ?? ''}
+            <div style={{marginBottom: '10px', fontSize: '14px'}}>
+                <span style={{fontWeight: 'bold'}}>מספר מקומות: </span>{parkingLotInfo.numberOfSpots ?? ''}
             </div>
-            <div style={{ marginBottom: '10px', fontSize: '14px'  }}>
-                <span style={{ fontWeight: 'bold' }}>תמחור: </span>{parkingLotInfo.fixedPriceInformation ?? ''}
+            <div style={{marginBottom: '10px', fontSize: '14px'}}>
+                <span style={{fontWeight: 'bold'}}>תמחור: </span>{parkingLotInfo.fixedPriceInformation ?? ''}
             </div>
         </div>
     </div>

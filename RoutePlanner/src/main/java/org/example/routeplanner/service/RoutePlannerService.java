@@ -36,16 +36,14 @@ public class RoutePlannerService {
 
     static {
         try {
-//            allParkingLotsLocations = new ObjectMapper().readValue(new File("src/main/resources/allParkingLotsLocations.json"), ArrayList.class);
              allParkingLotsLocations = new ObjectMapper().readValue(new File("src/main/resources/allParkingLotsLocations.json"), new TypeReference<HashMap<String, LatLng>>() {});
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    // Google Maps GeoApiContext for API requests
     private final GeoApiContext context = new GeoApiContext.Builder()
-            .apiKey("INSERT-KEY-HERE")
+            .apiKey("INSERT_KEY_HERE")
             .build();
 
     public RoutePlannerService() throws IOException {

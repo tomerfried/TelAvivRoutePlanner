@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import './InputWindow.css';
 
-function InputWindow({ origin, destination, setOrigin, setDestination, updateOriginAndDestination }) {
+function InputWindow({origin, destination, setOrigin, setDestination, updateOriginAndDestination}) {
     const [localOrigin, setLocalOrigin] = useState(origin);
     const [localDestination, setLocalDestination] = useState(destination);
 

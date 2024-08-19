@@ -1,9 +1,9 @@
 import React from 'react';
 import {fireEvent, render, screen, waitFor} from '@testing-library/react';
 import MapComponent, {getIndexOfShortestRoute} from './MapComponent';
-import { fetchRoutes, fetchParkingLotsInformation } from '../../services/api';
+import {fetchRoutes, fetchParkingLotsInformation} from '../../services/api';
 import * as ReactGoogleMapsApi from "@react-google-maps/api";
-import { initialize } from '@googlemaps/jest-mocks';
+import {initialize} from '@googlemaps/jest-mocks';
 import * as Api from "../../services/api.js";
 import RoutePlannerLayer from "./RoutePlannerLayer";
 
@@ -40,12 +40,12 @@ describe('MapComponent', () => {
                     fitBounds: jest.fn(),
                 })),
                 LatLngBounds: jest.fn(() => boundsMock),
-                ControlPosition: { TOP_RIGHT: 'TOP_RIGHT'}
+                ControlPosition: {TOP_RIGHT: 'TOP_RIGHT'}
             }
         };
 
-        responseRoutesMock = [{parkingLot: { name: 'ParkingLot1', info: 'Info1' }}]
-        responseParkingLotsInfosMock = [{ name: 'ParkingLot1', info: 'Info1' }];
+        responseRoutesMock = [{parkingLot: {name: 'ParkingLot1', info: 'Info1'}}]
+        responseParkingLotsInfosMock = [{name: 'ParkingLot1', info: 'Info1'}];
     });
 
     test('tests whether the required set of operations is performed once Search is clicked', async () => {
@@ -56,16 +56,16 @@ describe('MapComponent', () => {
         const fetchRoutesSpy = jest.spyOn(Api, 'fetchRoutes').mockImplementation(() => responseRoutesMock);
         const fetchParkingLotsInformationSpy = jest.spyOn(Api, 'fetchParkingLotsInformation').mockImplementation(() => responseParkingLotsInfosMock);
 
-        const { rerender } = render(<MapComponent />);
+        const {rerender} = render(<MapComponent/>);
 
-        fireEvent.change(screen.getByLabelText("Origin:"), { target: { value: 'Origin' } });
-        fireEvent.change(screen.getByLabelText("Destination:"), { target: { value: 'Destination' } });
-        fireEvent.click(screen.getByRole('button', { name: "Search" }));
+        fireEvent.change(screen.getByLabelText("Origin:"), {target: {value: 'Origin'}});
+        fireEvent.change(screen.getByLabelText("Destination:"), {target: {value: 'Destination'}});
+        fireEvent.click(screen.getByRole('button', {name: "Search"}));
 
         await waitFor(() => expect(fetchRoutesSpy).toHaveBeenCalledWith('Origin', 'Destination'));
         await waitFor(() => expect(fetchParkingLotsInformationSpy).toHaveBeenCalledWith(['ParkingLot1']));
 
-        rerender(<MapComponent />);
+        rerender(<MapComponent/>);
 
         expect(RoutePlannerLayer).toHaveBeenCalled();
         expect(RoutePlannerLayer.mock.instances[0].clearMapObjects).toHaveBeenCalled();
@@ -75,15 +75,15 @@ describe('MapComponent', () => {
         expect(RoutePlannerLayer.mock.instances[0].fitMapBounds).toHaveBeenCalled();
     });
 
-it('should get index of shortest route', () => {
-    const routes = [
-        { totalTime: 20 },
-        { totalTime: 10 },
-        { totalTime: 30 },
-    ];
+    it('should get index of shortest route', () => {
+        const routes = [
+            {totalTime: 20},
+            {totalTime: 10},
+            {totalTime: 30},
+        ];
 
-    const index = getIndexOfShortestRoute(routes);
+        const index = getIndexOfShortestRoute(routes);
 
-    expect(index).toBe(1);
-});
+        expect(index).toBe(1);
+    });
 });

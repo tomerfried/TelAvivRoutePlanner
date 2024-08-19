@@ -15,16 +15,16 @@ describe('RoutePlannerLayer tests', () => {
 
     beforeEach(() => {
         mapMock = {};
-        boundsMock = { extend: jest.fn() };
+        boundsMock = {extend: jest.fn()};
         routeMock = {
             drivingPath: {
                 directionsRoute: {
                     legs: [
                         {
                             steps: [
-                                { polyline: { encodedPath: 'encodedPathMock' }, startLocation: { lat: 1, lng: 1 } },
+                                {polyline: {encodedPath: 'encodedPathMock'}, startLocation: {lat: 1, lng: 1}},
                             ],
-                            duration: { humanReadable: '10 mins' },
+                            duration: {humanReadable: '10 mins'},
                         },
                     ],
                 },
@@ -34,14 +34,14 @@ describe('RoutePlannerLayer tests', () => {
                     legs: [
                         {
                             steps: [
-                                { polyline: { encodedPath: 'encodedPathMock' }, startLocation: { lat: 2, lng: 2 } },
+                                {polyline: {encodedPath: 'encodedPathMock'}, startLocation: {lat: 2, lng: 2}},
                             ],
-                            duration: { humanReadable: '15 mins' },
+                            duration: {humanReadable: '15 mins'},
                         },
                     ],
                 },
             },
-            parkingLot: { location: { lat: 3, lng: 3 } },
+            parkingLot: {location: {lat: 3, lng: 3}},
         };
         mapObjectsMock = {
             drivingETAPopups: [],
@@ -54,7 +54,7 @@ describe('RoutePlannerLayer tests', () => {
             maps: {
                 geometry: {
                     encoding: {
-                        decodePath: jest.fn(() => [{ lat: 0, lng: 0 }]),
+                        decodePath: jest.fn(() => [{lat: 0, lng: 0}]),
                     },
                 },
                 Polyline: jest.fn().mockImplementation(() => ({
@@ -72,7 +72,7 @@ describe('RoutePlannerLayer tests', () => {
                     close: jest.fn(),
                 })),
                 Size: jest.fn(),
-                SymbolPath: { CIRCLE: 'CIRCLE' },
+                SymbolPath: {CIRCLE: 'CIRCLE'},
                 LatLngBounds: jest.fn(() => boundsMock),
             }
         };
@@ -88,7 +88,7 @@ describe('RoutePlannerLayer tests', () => {
         routePlannerLayer.addDrivingRouteETAPopup(routeMock.drivingPath);
 
         expect(window.google.maps.InfoWindow).toHaveBeenCalledWith(expect.objectContaining({
-            position: { lat: 1, lng: 1 },
+            position: {lat: 1, lng: 1},
             content: '<div class="custom-infowindow" >נסיעה: 10 דקות</div>',
             headerDisabled: true,
             zIndex: 500,
@@ -101,7 +101,7 @@ describe('RoutePlannerLayer tests', () => {
         routePlannerLayer.addWalkingRouteETAPopup(routeMock.walkingPath);
 
         expect(window.google.maps.InfoWindow).toHaveBeenCalledWith(expect.objectContaining({
-            position: { lat: 2, lng: 2 },
+            position: {lat: 2, lng: 2},
             content: '<div class="custom-infowindow" >הליכה: 15 דקות</div>',
             headerDisabled: true,
             zIndex: 500,
@@ -115,7 +115,7 @@ describe('RoutePlannerLayer tests', () => {
 
         expect(window.google.maps.geometry.encoding.decodePath).toHaveBeenCalledWith('encodedPathMock');
         expect(window.google.maps.Polyline).toHaveBeenCalledWith(expect.objectContaining({
-            path: [{ lat: 0, lng: 0 }],
+            path: [{lat: 0, lng: 0}],
             geodesic: true,
             strokeOpacity: 1.0,
             strokeWeight: 4,
@@ -128,7 +128,7 @@ describe('RoutePlannerLayer tests', () => {
 
         expect(window.google.maps.geometry.encoding.decodePath).toHaveBeenCalledWith('encodedPathMock');
         expect(window.google.maps.Polyline).toHaveBeenCalledWith(expect.objectContaining({
-            path: [{ lat: 0, lng: 0 }],
+            path: [{lat: 0, lng: 0}],
             strokeOpacity: 0,
             icons: [{
                 icon: expect.objectContaining({
@@ -148,31 +148,34 @@ describe('RoutePlannerLayer tests', () => {
     it('should add polylines to map and extend bounds', () => {
         const polylineMock = {
             setMap: jest.fn(),
-            getPath: jest.fn().mockReturnValue([{ lat: 0, lng: 0 }])
+            getPath: jest.fn().mockReturnValue([{lat: 0, lng: 0}])
         };
         const polylines = [polylineMock];
 
         routePlannerLayer.addPolyLinesToMapAndBounds(polylines);
 
         expect(polylineMock.setMap).toHaveBeenCalledWith(mapMock);
-        expect(boundsMock.extend).toHaveBeenCalledWith({ lat: 0, lng: 0 });
+        expect(boundsMock.extend).toHaveBeenCalledWith({lat: 0, lng: 0});
     });
 
     it('should add route, configure polylines, add listeners, and change prominences', () => {
         const polylineMock = {
             addListener: jest.fn(),
             setMap: jest.fn(),
-            getPath: jest.fn().mockReturnValue([{ lat: 1, lng: 1 }, { lat: 2, lng: 2 }])
+            getPath: jest.fn().mockReturnValue([{lat: 1, lng: 1}, {lat: 2, lng: 2}])
         };
 
         const createDrivingRoutePolylinesSpy = jest.spyOn(routePlannerLayer, 'createDrivingRoutePolylines').mockReturnValue([polylineMock]);
         const createWalkingRoutePolylinesSpy = jest.spyOn(routePlannerLayer, 'createWalkingRoutePolylines').mockReturnValue([polylineMock]);
-        const addParkingLotMarkerSpy = jest.spyOn(routePlannerLayer, 'addParkingLotMarker').mockImplementation(() => {});
-        const addDrivingRouteETAPopupSpy = jest.spyOn(routePlannerLayer, 'addDrivingRouteETAPopup').mockImplementation(() => {});
-        const addWalkingRouteETAPopupSpy = jest.spyOn(routePlannerLayer, 'addWalkingRouteETAPopup').mockImplementation(() => {});
+        const addParkingLotMarkerSpy = jest.spyOn(routePlannerLayer, 'addParkingLotMarker').mockImplementation(() => {
+        });
+        const addDrivingRouteETAPopupSpy = jest.spyOn(routePlannerLayer, 'addDrivingRouteETAPopup').mockImplementation(() => {
+        });
+        const addWalkingRouteETAPopupSpy = jest.spyOn(routePlannerLayer, 'addWalkingRouteETAPopup').mockImplementation(() => {
+        });
 
 
-        routePlannerLayer.addRoute(routeMock, [{ info: 'info' }]);
+        routePlannerLayer.addRoute(routeMock, [{info: 'info'}]);
 
         expect(createDrivingRoutePolylinesSpy).toHaveBeenCalledWith(routeMock.drivingPath);
         expect(createWalkingRoutePolylinesSpy).toHaveBeenCalledWith(routeMock.walkingPath);
@@ -186,7 +189,7 @@ describe('RoutePlannerLayer tests', () => {
 
         if (mapObjectsMock.placeMarkers.length > 0) {
             // eslint-disable-next-line jest/no-conditional-expect
-            expect(addParkingLotMarkerSpy).toHaveBeenCalledWith({ info: 'info' }, routeMock, 'iconUrl');
+            expect(addParkingLotMarkerSpy).toHaveBeenCalledWith({info: 'info'}, routeMock, 'iconUrl');
         }
 
         expect(addDrivingRouteETAPopupSpy).toHaveBeenCalledWith(routeMock.drivingPath);
@@ -194,7 +197,7 @@ describe('RoutePlannerLayer tests', () => {
     });
 
     it('should add a marker', () => {
-        const placeObject = { location: { lat: 1, lng: 1 }, name: 'Place' };
+        const placeObject = {location: {lat: 1, lng: 1}, name: 'Place'};
 
         const marker = routePlannerLayer.addMarker(placeObject, 'iconUrl');
 
@@ -210,9 +213,9 @@ describe('RoutePlannerLayer tests', () => {
     });
 
     it('should add a place marker', () => {
-        const placeObject = { location: { lat: 1, lng: 1 }, name: 'Place' };
+        const placeObject = {location: {lat: 1, lng: 1}, name: 'Place'};
 
-        routePlannerLayer.addPlaceMarker( placeObject, 'iconUrl');
+        routePlannerLayer.addPlaceMarker(placeObject, 'iconUrl');
 
         expect(routePlannerLayer.mapObjects.placeMarkers.length).toBe(1);
         expect(window.google.maps.Marker).toHaveBeenCalledWith(expect.objectContaining({
@@ -227,7 +230,7 @@ describe('RoutePlannerLayer tests', () => {
     });
 
     it('should add a parking lot marker with info window', () => {
-        const parkingLotInfo = { info: 'info' };
+        const parkingLotInfo = {info: 'info'};
 
         routePlannerLayer.addParkingLotMarker(parkingLotInfo, routeMock, 'iconUrl');
 
@@ -240,14 +243,14 @@ describe('RoutePlannerLayer tests', () => {
                 scaledSize: expect.any(window.google.maps.Size),
             }),
         }));
-        expect(ReactDOMServer.renderToString).toHaveBeenCalledWith(<ParkingInfoModal parkingLotInfo={parkingLotInfo} />);
+        expect(ReactDOMServer.renderToString).toHaveBeenCalledWith(<ParkingInfoModal parkingLotInfo={parkingLotInfo}/>);
         expect(routePlannerLayer.mapObjects.placeMarkers.length).toBe(1);
         expect(routePlannerLayer.mapObjects.placeMarkers[0].addListener).toHaveBeenCalledWith('click', expect.any(Function));
     });
 
 
     it('should clear map object array', () => {
-        const mapObjectArray = [{ setMap: jest.fn() }, { setMap: jest.fn() }];
+        const mapObjectArray = [{setMap: jest.fn()}, {setMap: jest.fn()}];
 
         routePlannerLayer.clearMapObjectArray(mapObjectArray);
 
@@ -258,10 +261,10 @@ describe('RoutePlannerLayer tests', () => {
 
     it('should clear all map objects', () => {
         routePlannerLayer.mapObjects = {
-            placeMarkers: [{ setMap: jest.fn() }],
-            walkingETAPopups: [{ setMap: jest.fn() }],
-            drivingETAPopups: [{ setMap: jest.fn() }],
-            allRoutesPolylines: [[{ setMap: jest.fn() }]],
+            placeMarkers: [{setMap: jest.fn()}],
+            walkingETAPopups: [{setMap: jest.fn()}],
+            drivingETAPopups: [{setMap: jest.fn()}],
+            allRoutesPolylines: [[{setMap: jest.fn()}]],
         };
 
         routePlannerLayer.clearMapObjects();
@@ -276,13 +279,13 @@ describe('RoutePlannerLayer tests', () => {
     it('should change route prominence', () => {
         const polylineMock = {
             setOptions: jest.fn(),
-            get: jest.fn(() => [{ icon: { strokeColor: '' } }]),
+            get: jest.fn(() => [{icon: {strokeColor: ''}}]),
             set: jest.fn(),
         };
         routePlannerLayer.mapObjects = {
             allRoutesPolylines: [[polylineMock]],
-            walkingETAPopups: [{ open: jest.fn(), close: jest.fn() }],
-            drivingETAPopups: [{ open: jest.fn(), close: jest.fn() }],
+            walkingETAPopups: [{open: jest.fn(), close: jest.fn()}],
+            drivingETAPopups: [{open: jest.fn(), close: jest.fn()}],
         };
 
         routePlannerLayer.highlightRoute(0);
@@ -298,13 +301,13 @@ describe('RoutePlannerLayer tests', () => {
     it('should change all routes prominences', () => {
         const polylineMock = {
             setOptions: jest.fn(),
-            get: jest.fn(() => [{ icon: { strokeColor: '' } }]),
+            get: jest.fn(() => [{icon: {strokeColor: ''}}]),
             set: jest.fn(),
         };
         routePlannerLayer.mapObjects = {
             allRoutesPolylines: [[polylineMock], [polylineMock]],
-            walkingETAPopups: [{ open: jest.fn(), close: jest.fn() }, { open: jest.fn(), close: jest.fn() }],
-            drivingETAPopups: [{ open: jest.fn(), close: jest.fn() }, { open: jest.fn(), close: jest.fn() }],
+            walkingETAPopups: [{open: jest.fn(), close: jest.fn()}, {open: jest.fn(), close: jest.fn()}],
+            drivingETAPopups: [{open: jest.fn(), close: jest.fn()}, {open: jest.fn(), close: jest.fn()}],
         };
 
         routePlannerLayer.highlightSelectedRouteAndDehighlightOthers(0);

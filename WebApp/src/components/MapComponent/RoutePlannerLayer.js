@@ -18,12 +18,12 @@ export default class RoutePlannerLayer {
         this.addPolyLinesToMapAndBounds(routePolylines);
         const routeIndex = this.mapObjects.allRoutesPolylines.length - 1;
         this.setRouteProminenceToChangeByClick(routeIndex);
-        this.addParkingLotMarker(parkingLotInfo, route,  parkingLotIconUrl);
+        this.addParkingLotMarker(parkingLotInfo, route, parkingLotIconUrl);
         this.addDrivingRouteETAPopup(route.drivingPath);
         this.addWalkingRouteETAPopup(route.walkingPath);
     }
 
-    createFullRoutePolylines(route){
+    createFullRoutePolylines(route) {
         const drivingRoutePolylines = this.createDrivingRoutePolylines(route.drivingPath);
         const walkingRoutePolylines = this.createWalkingRoutePolylines(route.walkingPath);
         const routePolylines = drivingRoutePolylines.concat(walkingRoutePolylines);
@@ -69,7 +69,7 @@ export default class RoutePlannerLayer {
         return polylines;
     }
 
-    addPolyLinesToMapAndBounds(polylines){
+    addPolyLinesToMapAndBounds(polylines) {
         this.mapObjects.allRoutesPolylines.push(polylines);
         polylines.forEach(polyline => polyline.setMap(this.map));
         polylines.forEach(polyline => {
@@ -78,7 +78,7 @@ export default class RoutePlannerLayer {
         });
     }
 
-    setRouteProminenceToChangeByClick(routeIndex){
+    setRouteProminenceToChangeByClick(routeIndex) {
         this.mapObjects.allRoutesPolylines[routeIndex].forEach(polyline => {
             polyline.addListener('click', () => this.highlightSelectedRouteAndDehighlightOthers(routeIndex));
         });
@@ -86,10 +86,9 @@ export default class RoutePlannerLayer {
 
     highlightSelectedRouteAndDehighlightOthers(selectedRouteIndex) {
         this.mapObjects.allRoutesPolylines.forEach((routeObjects, i) => {
-            if (i === selectedRouteIndex){
+            if (i === selectedRouteIndex) {
                 this.highlightRoute(i);
-            }
-            else{
+            } else {
                 this.dehighlightRoute(i);
             }
         });
@@ -129,7 +128,7 @@ export default class RoutePlannerLayer {
         this.mapObjects.placeMarkers.push(parkingLotMarker);
     }
 
-    setParkingLotInfoWindowToBeOpenedByClick(clickableMarker, parkingLotInfoWindow){
+    setParkingLotInfoWindowToBeOpenedByClick(clickableMarker, parkingLotInfoWindow) {
         clickableMarker.addListener('click', () => {
             parkingLotInfoWindow.open(this.map);
             parkingLotInfoWindow.setPosition(clickableMarker.getPosition());
@@ -137,7 +136,7 @@ export default class RoutePlannerLayer {
 
     }
 
-    createParkingLotInfoWindow(parkingLotInfo){
+    createParkingLotInfoWindow(parkingLotInfo) {
         const parkingLotInfoWindow = new window.google.maps.InfoWindow({
             content: ReactDOMServer.renderToString(<ParkingInfoModal parkingLotInfo={parkingLotInfo}/>),
             zIndex: 1000,
@@ -155,7 +154,7 @@ export default class RoutePlannerLayer {
         this.mapObjects.walkingETAPopups.push(estimatedTimeInfoWindow);
     }
 
-    createETAPopup(routePath, textPrefixBeforeEstimatedTime, positionOnRouteFragment){
+    createETAPopup(routePath, textPrefixBeforeEstimatedTime, positionOnRouteFragment) {
         let routeSteps = routePath.directionsRoute.legs[0].steps;
         let estimatedTime = routePath.directionsRoute.legs[0].duration.humanReadable.replace("mins", "דקות");
         let popUpPosition = routeSteps[Math.floor(routeSteps.length * positionOnRouteFragment)].startLocation;
@@ -198,7 +197,7 @@ export default class RoutePlannerLayer {
         this.mapObjects.allRoutesPolylines = [];
     }
 
-    fitMapBounds(){
+    fitMapBounds() {
         this.map.fitBounds(this.bounds);
     }
 }

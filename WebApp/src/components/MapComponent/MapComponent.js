@@ -1,27 +1,26 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
-import { fetchRoutes, fetchParkingLotsInformation } from '../../services/api';
+import React, {useEffect, useState, useRef, useCallback} from 'react';
+import {GoogleMap, useJsApiLoader} from '@react-google-maps/api';
+import {fetchRoutes, fetchParkingLotsInformation} from '../../services/api';
 import './MapComponent.css';
 import InputWindow from "../InputWindow/InputWindow";
 import RoutePlannerLayer from './RoutePlannerLayer.js';
 
 function MapComponent() {
-    const { isLoaded: isApiLoaded } = useJsApiLoader({
+    const {isLoaded: isApiLoaded} = useJsApiLoader({
         libraries: ['geometry', 'marker'],
         id: 'google-map-script',
-        googleMapsApiKey: "INSERTֹֹ-KEY-HERE"
+        googleMapsApiKey: "INSERT_KEY_HERE"
     });
 
     const [parkingLotInfos, setParkingLotInfos] = useState([]);
     const [routes, setRoutes] = useState([]);
     const [isFetching, setIsFetching] = useState(true);
     const [zoom, setZoom] = useState(10);
-    const [center, setCenter] = useState({ lat: 32.0853, lng: 34.7818 });
+    const [center, setCenter] = useState({lat: 32.0853, lng: 34.7818});
     const [origin, setOrigin] = useState("");
     const [destination, setDestination] = useState("");
     const [routePlannerLayerInitialized, setRoutePlannerLayerInitialized] = useState(false);
     const routePlannerLayer = useRef(null);
-
 
 
     const ORIGIN_ICON_URL = "https://cdn-icons-png.freepik.com/512/2544/2544087.png?ga=GA1.1.720494702.1722840877";
@@ -58,7 +57,7 @@ function MapComponent() {
         fetchRouteAndParkingLots();
 
 
-        }, [origin, destination]);
+    }, [origin, destination]);
 
     useEffect(() => {
         if (!isFetching && routePlannerLayerInitialized === true && routes.length > 0) {
@@ -81,7 +80,7 @@ function MapComponent() {
 
     return isApiLoaded ? (
         <GoogleMap
-            mapContainerStyle={{ width: '100vw', height: '100vh' }}
+            mapContainerStyle={{width: '100vw', height: '100vh'}}
             zoom={zoom}
             center={center}
             onLoad={onLoad}
