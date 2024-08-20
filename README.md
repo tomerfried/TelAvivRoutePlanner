@@ -12,9 +12,8 @@ A web application that simplifies planning arrival routes to Tel Aviv, including
 ## Installation
 
 - Set your Google Maps API key in the following files:
-  - RoutePlanner/src/main/resources/application.properties
+  - RoutePlanner\src\main\java\org\example\routeplanner\service\RoutePlannerService.java
     WebApp/src/components/MapComponent/MapComponent.js
-- run "./mvnw package" in "RoutePlanner" folder in order to create the jar file for this service
 - Run docker engine
 - Run "docker compose up" in root folder
 - The app will be available in http://localhost:3000/
