@@ -1,0 +1,20 @@
+services: 
+  
+  spring-boot-route-planner:
+    build: ./RoutePlanner
+    restart: unless-stopped
+    ports:
+      - 3001:3001
+    volumes:
+      - ./RoutePlanner/src/main/resources:/src/main/resources
+
+
+  node-js-achuzot-hachof-scraper:
+    build: ./AchuzotHachofScraper
+    ports:
+      - 3002:3002
+  
+  react-ui:
+    build: ./WebApp
+    ports:
+      - 3000:3000
