@@ -3,7 +3,7 @@ import {GoogleMap, useJsApiLoader} from '@react-google-maps/api';
 import {fetchRoutes, fetchParkingLotsInformation} from '../../services/api';
 import './MapComponent.css';
 import InputWindow from "../InputWindow/InputWindow";
-import RoutePlannerLayer from './RoutePlannerLayer.js';
+import RoutePlannerLayer from '../../models/RoutePlannerLayer.js';
 
 function MapComponent() {
     const {isLoaded: isApiLoaded} = useJsApiLoader({

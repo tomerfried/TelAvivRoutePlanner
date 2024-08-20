@@ -5,9 +5,9 @@ import {fetchRoutes, fetchParkingLotsInformation} from '../../services/api';
 import * as ReactGoogleMapsApi from "@react-google-maps/api";
 import {initialize} from '@googlemaps/jest-mocks';
 import * as Api from "../../services/api.js";
-import RoutePlannerLayer from "./RoutePlannerLayer";
+import RoutePlannerLayer from "../../models/RoutePlannerLayer";
 
-jest.mock('./RoutePlannerLayer');
+jest.mock('../../models/RoutePlannerLayer');
 
 jest.mock('../../services/api', () => ({
     fetchRoutes: jest.fn(),

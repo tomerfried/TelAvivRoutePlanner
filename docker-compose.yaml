@@ -8,7 +8,6 @@ services:
     volumes:
       - ./RoutePlanner/src/main/resources:/src/main/resources
 
-
   node-js-achuzot-hachof-scraper:
     build: ./AchuzotHachofScraper
     ports:
